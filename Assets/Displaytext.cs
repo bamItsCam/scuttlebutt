@@ -2,10 +2,12 @@
 using System.Collections;
 
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Displaytext : MonoBehaviour {
 
-    public Text ScreenText;
+    //an array of UI Text labels you wish to display text on
+    public List<GameObject> Screens = new List<GameObject>();
 
     string text = "";
     int strIndex = 0;
@@ -30,7 +32,7 @@ public class Displaytext : MonoBehaviour {
             strIndex++;
             if (strIndex >= text.Length)
                 strIndex = 0;
-            newText = ScreenText.GetComponent<Text>().text + text[strIndex];
+            newText = Screens[0].GetComponent<Text>().text + text[strIndex];
             if (text[strIndex] == '\n')
                 lineCount++;
             while (lineCount >= linesToDisplay)
@@ -40,7 +42,10 @@ public class Displaytext : MonoBehaviour {
             }
 
             //set final new text
-            ScreenText.GetComponent<Text>().text = newText;
+            for (int i = 0; i < Screens.Count; i++)
+            {
+                Screens[i].GetComponent<Text>().text = newText;
+            }
         }
         
 	}
